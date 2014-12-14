@@ -1,4 +1,5 @@
 ---
+MKarp
 title: "Reproducible Research: Peer Assessment 1"
 output: 
   html_document:
@@ -7,19 +8,61 @@ output:
 
 
 ## Loading and preprocessing the data
+```{r, echo = FALSE}
+activity_data = read.csv("activity.csv")
+# inspect acitivity data
+str(activity_data)
 
+# convert date variable into date object
+activity_data$date = as.character(activity_data$date)
+activity_data$date = as.Date(activity_data$date)
+str(activity_data)
+summary(activity_data)
 
-
-## What is mean total number of steps taken per day?
-
-
+```
 
 ## What is the average daily activity pattern?
+```{r, echo = FALSE}
+#histogram of steps
+step_hist <- hist(activity_data$steps)
 
+## What is mean total number of steps taken per day?
+mu_steps <- mean(activity_data$steps)
+# 37.3826
 
+median_steps <- median(activity_data$stepsm, na.rm = TRUE)
+median_steps
+# 0
+
+# plot of activity
+plot_ts <- plot(type = 'l', activity_data$scale(steps)~activity_data$interval)
+max(activity_data$steps)
+#806
+activity_data[activity_data$steps == 806,]
+#615
+```
 
 ## Imputing missing values
-
-
+```{r, echo = FALSE}
+num_na <- sum(is.na(activity_data))
+# only activity daya has missing values so we replace these with the mean
+imputed_activity_data <- activity_data
+imputed_activity_data$steps[is.na(imputed_activity_data$steps)] <- mean(imputed_activity_data$steps, na.rm = TRUE)
+str(imputed_activity_data)
+summary(imputed_activity_data)
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r, echo = FALSE, fig.height=4}
+imputed_activity_data$weekday_bool <- weekdays(imputed_activity_data$date) == "Saturday" | weekdays(imputed_activity_data$date) == "Sunday"
+levels(imputed_activity_data$weekday_bool) <- c("Weekday", "Weekend")
+imputed_activity_data$weekday_bool[imputed_activity_data$weekday_bool == TRUE] <- "Weekend" 
+imputed_activity_data$weekday_bool[imputed_activity_data$weekday_bool == FALSE] <- "Weekday" 
+# standardize and scale the data to have mean 0 and sd 1
+#imputed_activity_data$steps <- imputed_activity_data$steps
+library(ggplot2)
+activity_plot <- ggplot(data = imputed_activity_data, aes(x=interval, y=scale(steps))) + geom_line()
+activity_plot + facet_grid(weekday_bool~.)
+library(knitr)
+```
+
