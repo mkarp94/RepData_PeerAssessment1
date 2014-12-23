@@ -1,6 +1,6 @@
 ---
 MKarp
-title: "Reproducible Research: Peer Assessment 1"
+title: "Reproducible Research: Peer Assessment 2"
 output: 
   html_document:
     keep_md: true
@@ -9,7 +9,7 @@ output:
 
 ## Loading and preprocessing the data
 ```{r, echo = FALSE}
-activity_data = read.csv("activity.csv")
+storm_data = read.csv("activity.csv")
 # inspect acitivity data
 str(activity_data)
 
