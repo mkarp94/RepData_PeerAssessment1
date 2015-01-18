@@ -1,6 +1,7 @@
 ---
-MKarp
+author: "Michael Karp"
 title: "Reproducible Research: Peer Assessment 1"
+date: 1/18/2014
 output: 
 html_document:
 keep_md: true
@@ -198,8 +199,4 @@ activity_plot + facet_grid(weekday_bool~.)
 ```
 
 ![plot of chunk unnamed-chunk-5](assets/fig/unnamed-chunk-5-1.png) 
-
-```r
-library(knitr)
-```
 
