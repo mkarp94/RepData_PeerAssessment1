@@ -1,0 +1,10 @@
+base
+lattice
+ggplot2
+caret
+AppliedPredictiveModeling
+gplots
+ROCR
+devtools
+slidify
+knitr

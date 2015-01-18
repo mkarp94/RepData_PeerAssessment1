@@ -1,15 +1,16 @@
 ---
-MKarp
-title: "Reproducible Research: Peer Assessment 2"
+author: "Michael Karp"
+title: "Reproducible Research: Peer Assessment 1"
+date: 1/18/2014
 output: 
-  html_document:
-    keep_md: true
+html_document:
+keep_md: true
 ---
 
 
 ## Loading and preprocessing the data
-```{r, echo = FALSE}
-storm_data = read.csv("activity.csv")
+```{r, echo = TRUE}
+activity_data = read.csv("activity.csv")
 # inspect acitivity data
 str(activity_data)
 
@@ -18,34 +19,45 @@ activity_data$date = as.character(activity_data$date)
 activity_data$date = as.Date(activity_data$date)
 str(activity_data)
 summary(activity_data)
-
 ```
 
-## What is the average daily activity pattern?
-```{r, echo = FALSE}
+## What is mean total number of steps taken per day?
+```{r, echo = TRUE}
 #histogram of steps
 step_hist <- hist(activity_data$steps)
 
-## What is mean total number of steps taken per day?
-mu_steps <- mean(activity_data$steps)
+## Calculate and report the mean and median total number of steps taken per day
+mu_steps <- mean(activity_data$steps, na.rm = TRUE)
+mu_steps
 # 37.3826
 
-median_steps <- median(activity_data$stepsm, na.rm = TRUE)
+median_steps <- median(activity_data$steps, na.rm = TRUE)
 median_steps
 # 0
+```
 
+## What is the average daily activity pattern?
+```{r, echo = TRUE}
+# table of means of steps taken per interval
+mean_step_interval <- tapply(activity_data$steps, activity_data$interval, mean, na.rm = TRUE)
 # plot of activity
-plot_ts <- plot(type = 'l', activity_data$scale(steps)~activity_data$interval)
-max(activity_data$steps)
-#806
-activity_data[activity_data$steps == 806,]
-#615
+plot_ts <- plot(type = 'l', as.numeric(names(mean_step_interval)), mean_step_interval, xlab = "Interval", ylab = "Mean Steps Taken")
+
+# Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+max_avg_steps_taken <- which.max(mean_step_interval)
+max_avg_steps_taken
+mean_step_interval[104]
 ```
 
 ## Imputing missing values
-```{r, echo = FALSE}
+```{r, echo = TRUE}
+# Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 num_na <- sum(is.na(activity_data))
-# only activity daya has missing values so we replace these with the mean
+num_na
+
+# only steps taken has missing values so we replace these with the mean
+summary(activity_data)
+str(activity_data)
 imputed_activity_data <- activity_data
 imputed_activity_data$steps[is.na(imputed_activity_data$steps)] <- mean(imputed_activity_data$steps, na.rm = TRUE)
 str(imputed_activity_data)
@@ -53,16 +65,16 @@ summary(imputed_activity_data)
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r, echo = FALSE, fig.height=4}
+```{r, echo = TRUE, fig.height=4}
 imputed_activity_data$weekday_bool <- weekdays(imputed_activity_data$date) == "Saturday" | weekdays(imputed_activity_data$date) == "Sunday"
 levels(imputed_activity_data$weekday_bool) <- c("Weekday", "Weekend")
 imputed_activity_data$weekday_bool[imputed_activity_data$weekday_bool == TRUE] <- "Weekend" 
 imputed_activity_data$weekday_bool[imputed_activity_data$weekday_bool == FALSE] <- "Weekday" 
-# standardize and scale the data to have mean 0 and sd 1
-#imputed_activity_data$steps <- imputed_activity_data$steps
+
 library(ggplot2)
-activity_plot <- ggplot(data = imputed_activity_data, aes(x=interval, y=scale(steps))) + geom_line()
+imputed_activity_data$mean_step_interval <- tapply(imputed_activity_data$steps, imputed_activity_data$interval, mean)
+# plot of activity
+activity_plot <- ggplot(data = imputed_activity_data, aes(x = interval, y = mean_step_interval)) + geom_line() + xlab("Interval") + ylab("Mean Steps Taken")
 activity_plot + facet_grid(weekday_bool~.)
-library(knitr)
 ```
 
