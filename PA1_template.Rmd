@@ -9,7 +9,7 @@ keep_md: true
 
 
 ## Loading and preprocessing the data
-```{r, echo = TRUE}
+```{r, echo = TRUE, results='asis'}
 activity_data = read.csv("activity.csv")
 # inspect acitivity data
 str(activity_data)
@@ -22,7 +22,7 @@ summary(activity_data)
 ```
 
 ## What is mean total number of steps taken per day?
-```{r, echo = TRUE}
+```{r, echo = TRUE, results='asis'}
 #histogram of steps
 step_hist <- hist(activity_data$steps)
 
@@ -37,7 +37,7 @@ median_steps
 ```
 
 ## What is the average daily activity pattern?
-```{r, echo = TRUE}
+```{r, echo = TRUE, results='asis'}
 # table of means of steps taken per interval
 mean_step_interval <- tapply(activity_data$steps, activity_data$interval, mean, na.rm = TRUE)
 # plot of activity
@@ -50,7 +50,7 @@ mean_step_interval[104]
 ```
 
 ## Imputing missing values
-```{r, echo = TRUE}
+```{r, echo = TRUE, results='asis'}
 # Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 num_na <- sum(is.na(activity_data))
 num_na
@@ -65,7 +65,7 @@ summary(imputed_activity_data)
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r, echo = TRUE, fig.height=4}
+```{r, echo = TRUE, results='asis', fig.height=4}
 imputed_activity_data$weekday_bool <- weekdays(imputed_activity_data$date) == "Saturday" | weekdays(imputed_activity_data$date) == "Sunday"
 levels(imputed_activity_data$weekday_bool) <- c("Weekday", "Weekend")
 imputed_activity_data$weekday_bool[imputed_activity_data$weekday_bool == TRUE] <- "Weekend" 

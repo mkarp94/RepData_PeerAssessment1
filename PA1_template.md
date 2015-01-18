@@ -16,12 +16,10 @@ activity_data = read.csv("activity.csv")
 str(activity_data)
 ```
 
-```
-## 'data.frame':	17568 obs. of  3 variables:
-##  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
-##  $ date    : Factor w/ 61 levels "2012-10-01","2012-10-02",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
-```
+'data.frame':	17568 obs. of  3 variables:
+ $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ date    : Factor w/ 61 levels "2012-10-01","2012-10-02",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 
 ```r
 # convert date variable into date object
@@ -30,27 +28,23 @@ activity_data$date = as.Date(activity_data$date)
 str(activity_data)
 ```
 
-```
-## 'data.frame':	17568 obs. of  3 variables:
-##  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
-##  $ date    : Date, format: "2012-10-01" "2012-10-01" ...
-##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
-```
+'data.frame':	17568 obs. of  3 variables:
+ $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ date    : Date, format: "2012-10-01" "2012-10-01" ...
+ $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 
 ```r
 summary(activity_data)
 ```
 
-```
-##      steps             date               interval     
-##  Min.   :  0.00   Min.   :2012-10-01   Min.   :   0.0  
-##  1st Qu.:  0.00   1st Qu.:2012-10-16   1st Qu.: 588.8  
-##  Median :  0.00   Median :2012-10-31   Median :1177.5  
-##  Mean   : 37.38   Mean   :2012-10-31   Mean   :1177.5  
-##  3rd Qu.: 12.00   3rd Qu.:2012-11-15   3rd Qu.:1766.2  
-##  Max.   :806.00   Max.   :2012-11-30   Max.   :2355.0  
-##  NA's   :2304
-```
+     steps             date               interval     
+ Min.   :  0.00   Min.   :2012-10-01   Min.   :   0.0  
+ 1st Qu.:  0.00   1st Qu.:2012-10-16   1st Qu.: 588.8  
+ Median :  0.00   Median :2012-10-31   Median :1177.5  
+ Mean   : 37.38   Mean   :2012-10-31   Mean   :1177.5  
+ 3rd Qu.: 12.00   3rd Qu.:2012-11-15   3rd Qu.:1766.2  
+ Max.   :806.00   Max.   :2012-11-30   Max.   :2355.0  
+ NA's   :2304                                          
 
 ## What is mean total number of steps taken per day?
 
@@ -67,9 +61,7 @@ mu_steps <- mean(activity_data$steps, na.rm = TRUE)
 mu_steps
 ```
 
-```
-## [1] 37.3826
-```
+[1] 37.3826
 
 ```r
 # 37.3826
@@ -78,9 +70,7 @@ median_steps <- median(activity_data$steps, na.rm = TRUE)
 median_steps
 ```
 
-```
-## [1] 0
-```
+[1] 0
 
 ```r
 # 0
@@ -103,19 +93,15 @@ max_avg_steps_taken <- which.max(mean_step_interval)
 max_avg_steps_taken
 ```
 
-```
-## 835 
-## 104
-```
+835 
+104 
 
 ```r
 mean_step_interval[104]
 ```
 
-```
-##      835 
-## 206.1698
-```
+     835 
+206.1698 
 
 ## Imputing missing values
 
@@ -125,36 +111,30 @@ num_na <- sum(is.na(activity_data))
 num_na
 ```
 
-```
-## [1] 2304
-```
+[1] 2304
 
 ```r
 # only steps taken has missing values so we replace these with the mean
 summary(activity_data)
 ```
 
-```
-##      steps             date               interval     
-##  Min.   :  0.00   Min.   :2012-10-01   Min.   :   0.0  
-##  1st Qu.:  0.00   1st Qu.:2012-10-16   1st Qu.: 588.8  
-##  Median :  0.00   Median :2012-10-31   Median :1177.5  
-##  Mean   : 37.38   Mean   :2012-10-31   Mean   :1177.5  
-##  3rd Qu.: 12.00   3rd Qu.:2012-11-15   3rd Qu.:1766.2  
-##  Max.   :806.00   Max.   :2012-11-30   Max.   :2355.0  
-##  NA's   :2304
-```
+     steps             date               interval     
+ Min.   :  0.00   Min.   :2012-10-01   Min.   :   0.0  
+ 1st Qu.:  0.00   1st Qu.:2012-10-16   1st Qu.: 588.8  
+ Median :  0.00   Median :2012-10-31   Median :1177.5  
+ Mean   : 37.38   Mean   :2012-10-31   Mean   :1177.5  
+ 3rd Qu.: 12.00   3rd Qu.:2012-11-15   3rd Qu.:1766.2  
+ Max.   :806.00   Max.   :2012-11-30   Max.   :2355.0  
+ NA's   :2304                                          
 
 ```r
 str(activity_data)
 ```
 
-```
-## 'data.frame':	17568 obs. of  3 variables:
-##  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
-##  $ date    : Date, format: "2012-10-01" "2012-10-01" ...
-##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
-```
+'data.frame':	17568 obs. of  3 variables:
+ $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ date    : Date, format: "2012-10-01" "2012-10-01" ...
+ $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 
 ```r
 imputed_activity_data <- activity_data
@@ -162,26 +142,22 @@ imputed_activity_data$steps[is.na(imputed_activity_data$steps)] <- mean(imputed_
 str(imputed_activity_data)
 ```
 
-```
-## 'data.frame':	17568 obs. of  3 variables:
-##  $ steps   : num  37.4 37.4 37.4 37.4 37.4 ...
-##  $ date    : Date, format: "2012-10-01" "2012-10-01" ...
-##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
-```
+'data.frame':	17568 obs. of  3 variables:
+ $ steps   : num  37.4 37.4 37.4 37.4 37.4 ...
+ $ date    : Date, format: "2012-10-01" "2012-10-01" ...
+ $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 
 ```r
 summary(imputed_activity_data)
 ```
 
-```
-##      steps             date               interval     
-##  Min.   :  0.00   Min.   :2012-10-01   Min.   :   0.0  
-##  1st Qu.:  0.00   1st Qu.:2012-10-16   1st Qu.: 588.8  
-##  Median :  0.00   Median :2012-10-31   Median :1177.5  
-##  Mean   : 37.38   Mean   :2012-10-31   Mean   :1177.5  
-##  3rd Qu.: 37.38   3rd Qu.:2012-11-15   3rd Qu.:1766.2  
-##  Max.   :806.00   Max.   :2012-11-30   Max.   :2355.0
-```
+     steps             date               interval     
+ Min.   :  0.00   Min.   :2012-10-01   Min.   :   0.0  
+ 1st Qu.:  0.00   1st Qu.:2012-10-16   1st Qu.: 588.8  
+ Median :  0.00   Median :2012-10-31   Median :1177.5  
+ Mean   : 37.38   Mean   :2012-10-31   Mean   :1177.5  
+ 3rd Qu.: 37.38   3rd Qu.:2012-11-15   3rd Qu.:1766.2  
+ Max.   :806.00   Max.   :2012-11-30   Max.   :2355.0  
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
