@@ -74,7 +74,7 @@ imputed_activity_data$weekday_bool[imputed_activity_data$weekday_bool == FALSE] 
 library(ggplot2)
 imputed_activity_data$mean_step_interval <- tapply(imputed_activity_data$steps, imputed_activity_data$interval, mean)
 # plot of activity
-activity_plot <- ggplot(data = imputed_activity_data, aes(x = interval, y = mean_step_interval)) + geom_line() + xlab("Interval") + ylab("Mean Steps Taken")
-activity_plot + facet_grid(weekday_bool~.)
+activity_plot <- ggplot(data = imputed_activity_data, aes(x = interval, y = mean_step_interval)) + geom_line() + xlab("Interval") + ylab("Mean Steps Taken") + facet_grid(weekday_bool~.)
+activity_plot
 ```
 
